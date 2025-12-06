@@ -2,6 +2,11 @@
 
 A Java-based in-memory file system simulator that mimics common UNIX shell commands. This project was developed for ICS-202: Data Structures and Algorithms.
 
+## Students Information
+
+- Bahaa Mamdouh Najjar : 202372990
+- Abdulaziz Sultan Al-amri : 202349550
+
 ## Project Structure
 
 ```
