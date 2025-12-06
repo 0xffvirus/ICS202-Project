@@ -4,31 +4,33 @@
  * Inherits from Node abstract class.
  */
 public class File extends Node {
-    
+
     // Simulated size of the file in bytes
     private long size;
-    
+
     // Content of the file (for echo command)
     private String content;
-    
+
     /**
      * Constructor for creating a file with a specified size.
      * Used by the 'touch' command.
-     * @param name The name of the file
+     * 
+     * @param name   The name of the file
      * @param parent The parent directory
-     * @param size The simulated size in bytes
+     * @param size   The simulated size in bytes
      */
     public File(String name, Directory parent, long size) {
         super(name, parent);
         this.size = size;
         this.content = "";
     }
-    
+
     /**
      * Constructor for creating a file with content.
      * Used by the 'echo' command.
-     * @param name The name of the file
-     * @param parent The parent directory
+     * 
+     * @param name    The name of the file
+     * @param parent  The parent directory
      * @param content The content of the file
      */
     public File(String name, Directory parent, String content) {
@@ -37,49 +39,34 @@ public class File extends Node {
         // Size is the length of the content string
         this.size = content.length();
     }
-    
-    /**
-     * Checks if this node is a directory.
-     * @return false since this is a file
-     */
+
+    // checks if this node is a file or a directory
+    // always returns false for files so we are overriding the default behavior
     @Override
     public boolean isDirectory() {
         return false;
     }
-    
-    /**
-     * Gets the size of this file.
-     * @return The file size in bytes
-     */
+
+    // gets the size of this file
     @Override
     public long getSize() {
         return size;
     }
-    
-    /**
-     * Sets the size of this file.
-     * @param size The new size in bytes
-     */
+
+    // sets the size of this file
     public void setSize(long size) {
         this.size = size;
     }
-    
-    /**
-     * Gets the content of this file.
-     * @return The file content
-     */
+
+    // gets the content of this file
     public String getContent() {
         return content;
     }
-    
-    /**
-     * Sets the content of this file.
-     * Also updates the size to match content length.
-     * @param content The new content
-     */
+
+    // sets the content of the file, and sets the new size to the length
+    // of the new content
     public void setContent(String content) {
         this.content = content;
         this.size = content.length();
     }
 }
-

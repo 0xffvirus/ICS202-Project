@@ -1,13 +1,19 @@
+
 /**
  * Implementation of the Knuth-Morris-Pratt (KMP) string matching algorithm.
  * Used by the 'grep' command to search for patterns in file content.
  * Time Complexity: O(n + m) where n is text length and m is pattern length.
  */
+
+import java.util.List;
+import java.util.ArrayList;
+
 public class KMP {
-    
+
     /**
      * Searches for a pattern in the given text using KMP algorithm.
-     * @param text The text to search in
+     * 
+     * @param text    The text to search in
      * @param pattern The pattern to search for
      * @return true if pattern is found, false otherwise
      */
@@ -22,23 +28,23 @@ public class KMP {
         if (pattern.length() > text.length()) {
             return false;
         }
-        
+
         int n = text.length();
         int m = pattern.length();
-        
+
         // Build the failure function (prefix table)
         int[] lps = computeLPSArray(pattern);
-        
+
         int i = 0; // Index for text
         int j = 0; // Index for pattern
-        
+
         while (i < n) {
             // Characters match, move both pointers forward
             if (text.charAt(i) == pattern.charAt(j)) {
                 i++;
                 j++;
             }
-            
+
             // Pattern found (all characters matched)
             if (j == m) {
                 return true;
@@ -55,26 +61,27 @@ public class KMP {
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Computes the Longest Proper Prefix which is also Suffix (LPS) array.
      * This is the failure function used by KMP algorithm.
+     * 
      * @param pattern The pattern to compute LPS for
      * @return The LPS array
      */
     private static int[] computeLPSArray(String pattern) {
         int m = pattern.length();
         int[] lps = new int[m];
-        
+
         // Length of previous longest prefix suffix
         int length = 0;
-        
+
         // lps[0] is always 0
         lps[0] = 0;
-        
+
         int i = 1;
         while (i < m) {
             if (pattern.charAt(i) == pattern.charAt(length)) {
@@ -95,38 +102,39 @@ public class KMP {
                 }
             }
         }
-        
+
         return lps;
     }
-    
+
     /**
      * Finds all occurrences of pattern in text.
      * Returns list of starting indices where pattern is found.
-     * @param text The text to search in
+     * 
+     * @param text    The text to search in
      * @param pattern The pattern to search for
      * @return List of starting indices
      */
-    public static java.util.List<Integer> findAllOccurrences(String text, String pattern) {
-        java.util.List<Integer> occurrences = new java.util.ArrayList<>();
-        
+    public static List<Integer> findAllOccurrences(String text, String pattern) {
+        List<Integer> occurrences = new ArrayList<>();
+
         if (pattern == null || pattern.isEmpty() || text == null || text.isEmpty()) {
             return occurrences;
         }
-        
+
         int n = text.length();
         int m = pattern.length();
-        
+
         int[] lps = computeLPSArray(pattern);
-        
+
         int i = 0;
         int j = 0;
-        
+
         while (i < n) {
             if (text.charAt(i) == pattern.charAt(j)) {
                 i++;
                 j++;
             }
-            
+
             if (j == m) {
                 // Pattern found at index (i - j)
                 occurrences.add(i - j);
@@ -140,8 +148,7 @@ public class KMP {
                 }
             }
         }
-        
+
         return occurrences;
     }
 }
-
